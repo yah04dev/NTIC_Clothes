@@ -6,71 +6,75 @@
     <title>Connexion & Inscription</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-input, select, button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: 1px solid #444;
-    border-radius: 5px;
-    font-size: 16px;
-    background: #222;
-    color: white;
-    box-sizing: border-box; /* Empêche les éléments de dépasser */
-}
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
-            background-color: #000;
+            background: linear-gradient(to right, #141e30, #243b55);
             color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .login-container {
             width: 100%;
             max-width: 400px;
-            margin: 50px auto;
-            background: #111;
+            background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
         .toggle-buttons {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         .toggle-buttons button {
-            width: 48%;
+            width: 32%;
             padding: 10px;
             border: none;
-            background: #333;
+            background: #1e90ff;
             color: white;
             cursor: pointer;
             border-radius: 5px;
+            transition: background 0.3s ease-in-out;
+        }
+        .toggle-buttons button:hover {
+            background: #4169e1;
         }
         .form-container {
             display: none;
+            animation: fadeIn 0.5s ease-in-out;
         }
         .form-container.active {
             display: block;
         }
-        input {
+        input, button {
             width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #555;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #444;
             border-radius: 5px;
+            font-size: 16px;
             background: #222;
             color: white;
+            box-sizing: border-box;
         }
         .submit-btn {
-            background: #444;
+            background: #28a745;
             color: white;
-            padding: 10px;
-            border: none;
-            width: 100%;
             cursor: pointer;
-            border-radius: 5px;
+            transition: background 0.3s ease-in-out;
+        }
+        .submit-btn:hover {
+            background: #218838;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -79,12 +83,13 @@ input, select, button {
         <div class="toggle-buttons">
             <button onclick="login()">Connexion</button>
             <button onclick="signup()">Inscription</button>
+            <button onclick="rst()">Restaurer</button>
         </div>
         {{X}}
-        <div id="login-form" class="form-container">
+        <div id="login-form" class="form-container active">
+            <h2>Connexion</h2>
             <form action="/checko" method="get">
-                <h2>Connexion</h2>
-                <input type="text" name="email" placeholder="email">
+                <input type="text" name="email" placeholder="Email">
                 <input type="password" name="pass" placeholder="Mot de passe">
                 <button class="submit-btn">Se connecter</button>
             </form>
@@ -92,22 +97,36 @@ input, select, button {
         <div id="signup-form" class="form-container">
             <h2>Inscription</h2>
             <form action="/insc" method="get">
-            <input type="text" name="fname" placeholder="Nom et prénom">
-            <input type="email" name="email" placeholder="Email">
-            <input type="text" name="add" placeholder="Adresse">
-            <input type="tel" name="tel" placeholder="Numéro de téléphone">
-            <button class="submit-btn">S'inscrire</button>
+                <input type="text" name="fname" placeholder="Nom et prénom">
+                <input type="email" name="email" placeholder="Email">
+                <input type="text" name="add" placeholder="Adresse">
+                <input type="tel" name="tel" placeholder="Numéro de téléphone">
+                <button class="submit-btn">S'inscrire</button>
+            </form>
+        </div>
+        <div id="restore-form" class="form-container">
+            <h2>Restaurer</h2>
+            <form action="/rst" method="get">
+                <input type="email" name="email" placeholder="Email">
+                <button class="submit-btn">Restaurer</button>
             </form>
         </div>
     </div>
     <script>
         function login() {
-            document.getElementById('login-form').style.display = 'block';
-            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').classList.add('active');
+            document.getElementById('signup-form').classList.remove('active');
+            document.getElementById('restore-form').classList.remove('active');
         }
         function signup() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('signup-form').style.display = 'block';
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('signup-form').classList.add('active');
+            document.getElementById('restore-form').classList.remove('active');
+        }
+        function rst() {
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('signup-form').classList.remove('active');
+            document.getElementById('restore-form').classList.add('active');
         }
     </script>
 </body>

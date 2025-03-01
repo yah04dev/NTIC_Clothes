@@ -18,7 +18,7 @@ def pass_gen(length=8):
 
 def emailo(password, recipient, fname):
     sender = "clothestore25@zohomail.com"
-    app_password = "S6tZK9MqFE61"  # Remplace par ton mot de passe d'application Zoho
+    app_password = "S6tZK9MqFE61" 
 
     msg = MIMEText(f"Welcome Mr {fname} to our store. Your password is {password}")
     msg["Subject"] = "Your Password"
@@ -26,7 +26,7 @@ def emailo(password, recipient, fname):
     msg["To"] = recipient
 
     try:
-        server = smtplib.SMTP_SSL("smtp.zoho.com", 465)  # Vérifie si smtp.zoho.com ou smtp.zoho.in est correct
+        server = smtplib.SMTP_SSL("smtp.zoho.com", 465)  
         server.login(sender, app_password)
         server.sendmail(sender, recipient, msg.as_string())
         server.quit()
@@ -93,7 +93,7 @@ def pay():
      total=request.args.get('total')
      success_url = url_for('buy', _external=True)
      failure_url = url_for('errpay', _external=True)
-     total = float(total)  # Ou float(total) si c'est un nombre avec des décimales
+     total = float(total)  
      qtp = str(int(total / 50))
      checkout = chargily.create_checkout(Checkout(items=[{"price": '01jn8d3dkh8sxmcaw1416tb4k8', "quantity": qtp}],success_url=success_url,failure_url=failure_url))
      print(checkout)
@@ -284,11 +284,9 @@ def get_user_info(clid):
     conn = sqlite3.connect("db.db")
     cursor = conn.cursor()
     
-    # Récupérer les informations de l'utilisateur
     cursor.execute("SELECT * FROM cli WHERE clid = ?", (clid,))
     user = cursor.fetchone()
     
-    # Récupérer les achats de l'utilisateur
     cursor.execute("SELECT * FROM com WHERE cid = ?", (clid,))
     purchases = cursor.fetchall()
     
@@ -368,6 +366,25 @@ def userf():
 
    finally:
         con.close() 
+@app.route('/rst')
+def rst():
+    con = sqlite3.connect("db.db")
+    cur = con.cursor()
+    
+    email = request.args.get('email')
+    cur.execute("SELECT passw FROM cli WHERE email=?", (email,))
+    result = cur.fetchone()
+    
+    con.close()
+
+    if result:  
+
+        emailo(result[0], email,"")
+        X="password is sent to your email"
+        return render_template('login.html',X=X)
+    else:
+        X="Email non trouvé"
+        return render_template('login.html',X=X)
 @app.route('/changepass')
 def changepass():
  CID = request.cookies.get('CID')
