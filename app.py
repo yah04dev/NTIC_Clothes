@@ -249,7 +249,7 @@ def buy():
      
      con.commit()
      con.close()
-     return redirect(render_template('succespay.html'))
+     return render_template('succespay.html')
 @app.route('/errpay')
 def errpay():
    return render_template('unsecpay.html')
