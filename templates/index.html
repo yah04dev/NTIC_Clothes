@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Store</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            text-align: center;
+        }
+
+        .search-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-filter input,
+        .search-filter select,
+        .search-filter button {
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            background: #222;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-filter input {
+            width: 250px;
+        }
+
+        .search-filter select {
+            width: 180px;
+        }
+
+        .search-filter button {
+            background: #ff9800;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-filter button:hover {
+            background: #e68900;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            background: #111;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 20px;
+            background: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between w-100 align-items-center">
+                    <div class="d-flex align-items-center">
+                        <h1 class="navbar-brand mb-0">🛍️ Boutique de Vêtements</h1>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <a href="/cart" class="btn btn-outline-warning">
+                            <i class="fas fa-shopping-cart"></i> Panier
+                        </a>
+                        <a href="/login" class="btn btn-outline-danger">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="search-filter">
+        <form action="/" method="GET" class="d-flex">
+            <input type="text" name="name" placeholder="Rechercher un produit...">
+            <button type="submit">🔍</button>
+        </form>
+        <form action="/" method="GET" class="d-flex">
+            <select name="types">
+                <option value="">Catégorie</option>
+                <option value="men">Homme</option>
+                <option value="women">Femme</option>
+                <option value="kids">Enfants</option>
+            </select>
+            <button type="submit">Filtrer</button>
+        </form>
+    </div>
+
+    <div class="container">
+        {% if prods %}
+            {% for row in prods %}
+            <div class="product" data-category="{{ row[4] }}">
+                <img src="/static/{{row[0]}}/1.jpg" alt="{{ row[1] }}">
+                <h3>{{ row[1] }}</h3>
+                <p>{{ row[2] }}</p>
+                <p>Prix: {{ row[3] }} dzd</p>
+                <a href="/details?pid={{row[0]}}" class="btn">Détail</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-products">
+                <p>Aucun produit disponible pour le moment</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion & Inscription</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #222;
+    color: white;
+    box-sizing: border-box; /* Empêche les éléments de dépasser */
+}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #000;
+            color: white;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 50px auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .toggle-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .toggle-buttons button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-container {
+            display: none;
+        }
+        .form-container.active {
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background: #222;
+            color: white;
+        }
+        .submit-btn {
+            background: #444;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body onload="login()">
+    <div class="login-container">
+        <div class="toggle-buttons">
+            <button onclick="login()">Connexion</button>
+            <button onclick="signup()">Inscription</button>
+        </div>
+        {{X}}
+        <div id="login-form" class="form-container">
+            <form action="/checko" method="get">
+                <h2>Connexion</h2>
+                <input type="text" name="email" placeholder="email">
+                <input type="password" name="pass" placeholder="Mot de passe">
+                <button class="submit-btn">Se connecter</button>
+            </form>
+        </div>
+        <div id="signup-form" class="form-container">
+            <h2>Inscription</h2>
+            <form action="/insc" method="get">
+            <input type="text" name="fname" placeholder="Nom et prénom">
+            <input type="email" name="email" placeholder="Email">
+            <input type="text" name="add" placeholder="Adresse">
+            <input type="tel" name="tel" placeholder="Numéro de téléphone">
+            <button class="submit-btn">S'inscrire</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function login() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+        }
+        function signup() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

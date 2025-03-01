@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panneau d'administration</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            text-align: center;
+        }
+        header {
+            background: #111;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            background: #222;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .nav-buttons a:hover {
+            background: #333;
+        }
+        .admin-container {
+            display: grid;
+            gap: 20px;
+            max-width: 800px;
+            margin: auto;
+            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        .box {
+            background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+        input, select, button, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #222;
+            color: white;
+            box-sizing: border-box;
+        }
+        .inline-form {
+            display: flex;
+            gap: 10px;
+        }
+        .inline-form select {
+            width: auto;
+            flex-grow: 1;
+        }
+        .inline-form button {
+            width: auto;
+        }
+        button {
+            background: #444;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #666;
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        function redirectToCategory(select) {
+            var category = select.value;
+            if (category) {
+                window.location.href = '/' + category;
+            }
+        }
+    </script>
+</head>
+<body>
+<header>
+    <h1>🛍️ Boutique de Vêtements - Admin</h1>
+    <div class="nav-buttons">
+        <a href="/"><i class="fas fa-home"></i> Accueil</a>
+        <a href="/commandes"><i class="fas fa-shopping-cart"></i> Commandes</a>
+        <a href="/login"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+    </div>
+</header>
+
+<h1>Panneau d'Administration</h1>
+<div class="admin-container">
+    <div class="box">
+        <h3>Ajouter un produit</h3>
+        <form method="GET" action="/ajp">
+            <input type="text" name="name" placeholder="Nom du produit" required>
+            <input type="number" name="prix" placeholder="Prix" required>
+            <select name="type">
+                <option value="">Catégorie</option>
+                <option value="men">Homme</option>
+                <option value="women">Femme</option>
+                <option value="kids">Enfants</option>
+            </select>
+            <textarea name="disc" placeholder="Description"></textarea>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h3>Gestion des produits</h3>
+        <form method="get" action="/delprod" class="inline-form">
+            <input type="number" name="pid" placeholder="ID du produit" required>
+            <button type="submit">Supprimer</button>
+        </form>
+        <form action="/details" method="GET" class="inline-form">
+            <input type="number" name="pid" placeholder="ID du produit">
+            <button type="submit">Go</button>
+        </form>
+        <form action="/" method="GET" class="inline-form">
+            <input type="text" name="name" placeholder="Nom du produit" style="width: 70%;">
+            <button type="submit">Go</button>
+        </form>
+        <form action="/" method="GET" class="inline-form">
+            <select name="types">
+                <option value="">Catégorie</option>
+                <option value="men">Homme</option>
+                <option value="women">Femme</option>
+                <option value="kids">Enfants</option>
+            </select>
+            <button type="submit">Go</button>
+        </form>
+        <form action="/userf" method="GET" class="inline-form">
+<input type="number" name="tel" placeholder="tel of client">
+            <button type="submit">Go</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

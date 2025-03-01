@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+            color: black;
+        }
+
+        .facture {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* En-tête */
+        .facture-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .facture-header img {
+            max-height: 70px; /* Logo */
+        }
+
+        .facture-header div {
+            text-align: right;
+        }
+
+        .facture-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        /* Infos entreprise et client */
+        .facture-infos {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .facture-infos div {
+            width: 48%;
+        }
+
+        .facture-infos h3 {
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Tableau des articles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: black;
+        }
+
+        /* Total */
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Mode impression */
+        @media print {
+            body {
+                background: none;
+                color: black;
+            }
+            .facture {
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body onload="setDateAndPrint()">
+
+    <div class="facture">
+        <!-- En-tête -->
+        <div class="facture-header">
+            <div>
+                <h2>Facture</h2>
+                <p><strong>Date :</strong> <span id="date_facture"></span></p>
+            </div>
+            <img src="logo.png" alt="Logo Entreprise"> <!-- Remplace par ton logo -->
+        </div>
+
+        <!-- Informations entreprise et client -->
+        <div class="facture-infos">
+            <div>
+                <h3>Émetteur</h3>
+                <p><strong>Entreprise :</strong> Nom de l'entreprise</p>
+                <p><strong>Adresse :</strong> 123 Rue du Commerce</p>
+                <p><strong>Téléphone :</strong> +213 123 456 789</p>
+                <p><strong>Email :</strong> contact@entreprise.com</p>
+            </div>
+            <div>
+                <h3>Client</h3>
+                <p><strong>Nom :</strong> {{ user[5] }}</p>
+                <p><strong>ID Client :</strong> {{ user[0] }}</p>
+                <p><strong>Adresse :</strong> {{ user[3] }}</p>
+                <p><strong>Téléphone :</strong> {{ user[4] }}</p>
+            </div>
+        </div>
+
+        <!-- Achats effectués -->
+        <h3>Détails de la commande</h3>
+        <table>
+            <tr>
+                <th>Nom du produit</th>
+                <th>Quantité</th>
+                <th>Couleur</th>
+                <th>Taille</th>
+                <th>Prix Unitaire</th>
+                <th>Total</th>
+            </tr>
+            {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase[5] }}</td>
+                <td>{{ purchase[2] }}</td>
+                <td>{{ purchase[3] }}</td>
+                <td>{{ purchase[4] }}</td>
+                <td>{{ purchase[6] }} €</td>
+                <td>{{ purchase[2] * purchase[6] }} dzd</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Total général -->
+        <p class="total">Total à payer : {{ user[6] }} dzd</p>
+    </div>
+
+    <script>
+        function setDateAndPrint() {
+            // Obtenir la date du jour
+            let today = new Date();
+            let formattedDate = today.toLocaleDateString("fr-FR");
+
+            // Insérer la date dans la facture
+            document.getElementById("date_facture").textContent = formattedDate;
+
+            // Lancer l'impression automatique
+            window.print();
+        }
+    </script>
+
+</body>
+</html>

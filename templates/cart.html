@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #000;
+            color: white;
+            padding: 20px;
+        }
+        .navbar {
+            background: #222;
+            padding: 10px;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        .cart-container {
+            max-width: 600px;
+            margin: auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            color: white;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            background: #222;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            text-decoration: none;
+            background: #28a745;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-remove {
+            background: red;
+        }
+        .btn-buy {
+            background: #007bff;
+        }
+        .btn-view {
+            background: #ffa500;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🛍️ Boutique de Vêtements</h1>
+        <a href="/">🏠 Accueil</a>
+        
+        <a href="/login">logout</a>
+    </div>
+    
+    <div class="cart-container">
+        <h2>🛒 Votre Panier</h2>
+
+        {% if message %}
+            <p style="color: green;">{{ message }}</p>
+        {% endif %}
+        {% if prods %}
+        <table>
+            <tr>
+                <th>Produit</th>
+                <th>Qty</th>
+                <th>PU</th>
+                <th>Total Prix</th>
+                <th>Action</th>
+            </tr>
+           
+            {% for item in prods %}
+           
+            <tr>
+                <td>{{ item[5] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[6] }} dzd</td>
+                <td>{{ item[6] * item[2] }} dzd</td>
+                <td>
+                    <a class="btn btn-remove" href="">❌ Supprimer</a>
+                    <a class="btn btn-view" href="/details?pid={{ item[1] }}">🔍 Voir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h3>Total: {{total}} dzd</h3>
+        <a class="btn btn-buy" href="/pay?total={{total}}">✅ Acheter</a>
+        {% else %}
+        <p>Votre panier est vide.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

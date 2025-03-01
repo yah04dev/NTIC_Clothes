@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Échoué</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .message {
+            font-size: 24px;
+            color: #FF3B30; /* Rouge pour erreur */
+        }
+    </style>
+    <script>
+        setTimeout(function() {
+            window.location.href = "/"; // Redirection vers la page d'accueil
+        }, 3000);
+    </script>
+</head>
+<body>
+    <h1 class="message">❌ Paiement Échoué</h1>
+    <p>Une erreur s'est produite lors du paiement. Veuillez réessayer.</p>
+    <p>Redirection vers la page d'accueil...</p>
+</body>
+</html>

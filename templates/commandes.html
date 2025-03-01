@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panneau d'administration</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            text-align: center;
+        }
+        header {
+            background: #111;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            background: #222;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .nav-buttons a:hover {
+            background: #333;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: auto;
+            margin-top: 30px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #111;
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+        th {
+            background: #222;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:hover {
+            background: #333;
+            transition: 0.3s;
+        }
+        .facture-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .facture-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        p {
+            font-size: 18px;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>🛍️ Boutique de Vêtements - Admin</h1>
+    <div class="nav-buttons">
+        <a href="/admin"><i class="fas fa-shopping-cart"></i> Admin Panel</a>
+    </div>
+</header>
+
+<div class="admin-container">
+    <h2>📦 Commandes des Clients</h2>
+    
+    {% if clients %}
+    <table>
+        <tr>
+            <th>ID Client</th>
+            <th>Total (EUR)</th>
+            <th>Facture</th>
+        </tr>
+        {% for client in clients %}
+        {% if client[1] > 0 %}
+        <tr>
+            <td>{{ client[0] }}</td>
+            <td>{{ client[1] }} dzd</td>
+            <td><a href="/fact?clid={{ client[0] }}" class="facture-btn">🧾 Voir Facture</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>Aucune commande disponible.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

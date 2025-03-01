@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil de l'Utilisateur</title>
+    <style>
+        /* Style général */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        /* Barre de navigation */
+        .navbar {
+            background: #111;
+            padding: 15px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+        }
+        .navbar a {
+            color: #ffcc00;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .navbar a:hover {
+            color: #ffaa00;
+            text-shadow: 0px 0px 8px rgba(255, 204, 0, 0.8);
+        }
+
+        /* Conteneur principal */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        h2 {
+            color: #ffcc00;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* Tableau des achats */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #222;
+            color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #ffcc00;
+            color: black;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #2b2b2b;
+        }
+        tr:hover {
+            background-color: rgba(255, 204, 0, 0.2);
+        }
+
+        /* Liens */
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        a:hover {
+            color: #ffaa00;
+            text-decoration: underline;
+        }
+
+        /* Boutons */
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .print-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .print-btn:hover {
+            background-color: #218838;
+            box-shadow: 0px 0px 10px rgba(40, 167, 69, 0.6);
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+            box-shadow: 0px 0px 10px rgba(220, 53, 69, 0.6);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Barre de navigation -->
+    <div class="navbar">
+        <a href="/">🏠 Accueil</a>
+        <a href="/admin">🎛️ Panneau d'administration</a>
+        <a href="/commandes">🛒 Voir les commandes</a>
+    </div>
+
+    <!-- Conteneur principal -->
+    <div class="container">
+        <h2>Informations de l'utilisateur</h2>
+        <p><strong>ID :</strong> {{ user[0] }}</p>
+        <p><strong>Email :</strong> {{ user[1] }}</p>
+        <p><strong>Adresse :</strong> {{ user[3] }}</p>
+        <p><strong>Téléphone :</strong> {{ user[4] }}</p>
+        <p><strong>Nom :</strong> {{ user[5] }}</p>
+        <p><strong>Total des achats :</strong> {{ user[6] }} dzd</p>
+
+        <h2>Achats effectués</h2>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Quantité</th>
+                <th>Couleur</th>
+                <th>Taille</th>
+                <th>Prix</th>
+            </tr>
+            {% for purchase in purchases %}
+            <tr>
+                <td><a href="/details?pid={{ purchase[1] }}">{{ purchase[5] }}</a></td>
+                <td>{{ purchase[2] }}</td>
+                <td>{{ purchase[3] }}</td>
+                <td>{{ purchase[4] }}</td>
+                <td>{{ purchase[6] }} dzd</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Boutons -->
+        <div class="buttons">
+            <a class="btn print-btn" href="/factimp?clid={{user[0] }}">🖨️ Imprimer la facture</a>
+            <a class="btn delete-btn" href="/delefact?clid={{user[0] }}">🗑️ Effacer la facture</a>
+        </div>
+    </div>
+
+</body>
+</html>
