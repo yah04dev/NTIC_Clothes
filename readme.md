@@ -1,6 +1,6 @@
-#NTIC_Clothes
+# NTIC_Clothes
 NTIC_Clothes is a web app for clothing store contains a lot of features like CIB DAHABIA paiment , bill printing , real email to send the password  and a lot of other things
-##run and deployment
+## run and deployment
 NTIC_Clothes is based on python so you need to have python installed and install
 Flask And sqlite3 And chargily_pay And smtplib
 Using
